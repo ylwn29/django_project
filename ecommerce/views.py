@@ -31,3 +31,10 @@ def home(request):
 
 def about(request):
 	return render(request, 'ecommerce/about.html', {'title': 'About'})
+
+def shoppingcart(request):
+	context = {
+		'products': Product.objects.all()
+
+	}
+	return render(request, 'ecommerce/shoppingcart.html', context)
