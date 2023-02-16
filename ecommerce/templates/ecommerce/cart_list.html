@@ -1,0 +1,12 @@
+{% extends 'ecommerce/base.html' %}
+{% block content %}
+	<h1 class="padding-none">Shopping Cart</h1>
+	<ul>
+	{% for item in items %}
+	    <li>{{ item.name }} ({{ item.quantity }} x {{ item.price }}) <a href="{% url 'cart_update' item.pk %}">Edit</a> <a href="{% url 'cart_delete' item.pk %}">Delete</a></li>
+	{% empty %}
+	    <li>Your cart is empty.</li>
+	{% endfor %}
+	</ul>
+	<a href="{% url 'cart_add' %}">Add to cart</a>
+{% endblock content %}

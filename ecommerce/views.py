@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 # from django.http import HttpResponse
-from .models import Product
+from .models import Product, CartItem
+from .forms import CartItemForm
 
 # Create dummy data which is a list of dictionaries
 # products = [
@@ -32,12 +33,41 @@ def home(request):
 def about(request):
 	return render(request, 'ecommerce/about.html', {'title': 'About'})
 
-def shoppingcart(request):
+
+def cart_list(request):
 	context = {
-		'products': Product.objects.all()
+		'items': CartItem.objects.all()
 
 	}
-	return render(request, 'ecommerce/shoppingcart.html', context)
+	return render(request, 'ecommerce/cart_list.html', context)
+
+def cart_add(request):
+    if request.method == 'POST':
+        form = CartItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cart_list')
+    else:
+        form = CartItemForm()
+    return render(request, 'ecommerce/cart_form.html', {'form': form})
+
+def cart_update(request, pk):
+    item = get_object_or_404(CartItem, pk=pk)
+    if request.method == 'POST':
+        form = CartItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('cart_list')
+    else:
+        form = CartItemForm(instance=item)
+    return render(request, 'ecommerce/cart_form.html', {'form': form})
+
+def cart_delete(request, pk):
+    item = get_object_or_404(CartItem, pk=pk)
+    item.delete()
+    return redirect('cart_list')
+
+
 
 def productdetails(request):
 	context = {

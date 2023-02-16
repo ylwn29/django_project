@@ -10,3 +10,11 @@ class Product(models.Model):
 	# create Str method
 	def __str__(self):
 		return self.name
+
+class CartItem(models.Model):
+	name = models.CharField(max_length=200, null=True)
+	quantity = models.IntegerField(default=1)
+	price = models.DecimalField(max_digits=8, decimal_places=2)
+
+	def __str__(self):
+		return self.name
