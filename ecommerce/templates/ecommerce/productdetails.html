@@ -1,0 +1,16 @@
+{% extends 'ecommerce/base.html' %}
+{% block content %}
+	<h1>Product Details</h1>
+	{% for product in products %}
+		<div class="col-md-4">
+			<h3><a class="article-title" href="#">{{ product.name }}</a></h3>
+	    	<p class="article-content">{{ product.description }}</p>
+	    	<ul class="list-group">
+	          <li class="list-group-item"><b>Comments</b></li>
+	          <li class="list-group-item list-group-item-light">Great product! My dog love it!</li>
+	          <li class="list-group-item list-group-item-light">Best item ever!</li>
+	        </ul>
+		</div>			
+
+	{% endfor %}
+{% endblock content %}

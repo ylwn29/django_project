@@ -38,3 +38,12 @@ def shoppingcart(request):
 
 	}
 	return render(request, 'ecommerce/shoppingcart.html', context)
+
+def productdetails(request):
+	context = {
+		'products': Product.objects.all()
+
+	}
+	return render(request, 'ecommerce/productdetails.html', context)
+
+
